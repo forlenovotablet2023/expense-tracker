@@ -1,0 +1,194 @@
+/* ===== GLOBAL ===== */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 20px;
+}
+
+/* ===== HEADING (DYNAMIC & AWESOME) ===== */
+.main-title {
+  text-align: center;
+  font-size: 44px;
+  margin-bottom: 30px;
+  animation: floatIn 1.2s ease-out;
+}
+
+.main-title span {
+  display: inline-block;
+  transition: transform 0.3s, text-shadow 0.3s;
+}
+
+.main-title .highlight {
+  color: #00f2fe;
+  text-shadow: 0 0 18px rgba(0,242,254,0.9);
+}
+
+.main-title:hover span {
+  transform: translateY(-6px);
+  text-shadow: 0 12px 30px rgba(0,0,0,0.5);
+}
+
+@keyframes floatIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-35px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== INPUT ROW ===== */
+.input-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+/* ===== INPUTS & SELECTS (BIGGER) ===== */
+input, select {
+  padding: 14px 18px;
+  margin: 6px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  min-width: 190px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+input:hover, select:hover,
+input:focus, select:focus {
+  transform: scale(1.04);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+}
+
+/* ===== BUTTONS ===== */
+button {
+  padding: 14px 28px;
+  font-size: 16px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #00f2fe, #4facfe);
+  color: #000;
+  font-weight: bold;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.45);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* ===== DELETE BUTTON ===== */
+.delete-btn {
+  background: #ff4d4d;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.delete-btn:hover {
+  background: #ff1f1f;
+}
+
+/* ===== TABLE ===== */
+table {
+  width: 100%;
+  background: white;
+  color: black;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background: #1f1f1f;
+  color: white;
+  font-size: 15px;
+}
+
+tr:hover {
+  background: #f2f2f2;
+}
+
+/* ===== DATE ROW (DROPDOWN STYLE) ===== */
+.date-row {
+  cursor: pointer;
+  background: #f7f7f7;
+  font-weight: bold;
+}
+
+.date-row:hover {
+  background: #eaeaea;
+}
+
+
+
+/* ===== DETAILS DROPDOWN ===== */
+.details ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.details li {
+  margin: 6px 0;
+  background: #f1f1f1;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ===== CATEGORY TAGS ===== */
+.cat {
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: #000;
+}
+
+.Fruits { background: #ffb347; }
+.Vegetables { background: #77dd77; }
+.Clothes { background: #aec6cf; }
+.Entertainment { background: #ff6961; }
+.Restaurant { background: #f49ac2; }
+.College { background: #cfcfc4; }
+.Milk\ \&\ Egg { background: #fffacd; }
+.Petrol { background: #ffcc00; }
+.Travel { background: #87ceeb; }
+.Hospital { background: #ff9999; }
+
+/* ===== CHART ===== */
+canvas {
+  display: block;
+  margin: 30px auto;
+  background: white;
+  padding: 14px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* ===== UTIL ===== */
+.hidden {
+  display: none;
+}

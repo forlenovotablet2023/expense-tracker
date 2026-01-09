@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home Expense Tracker</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+  <!-- ===== HEADING ===== -->
+  <h1 class="main-title">
+    🏠 <span>Home Expense</span> <span class="highlight">Tracker</span>
+  </h1>
+
+  <!-- ===== INPUT SECTION ===== -->
+  <div class="input-row">
+
+    <input
+      type="date"
+      id="date"
+      min="2026-01-01"
+      max="2026-01-31"
+    >
+
+    <select id="category">
+      <option>Fruits</option>
+      <option>Vegetables</option>
+      <option>Clothes</option>
+      <option>Entertainment</option>
+      <option>Restaurant</option>
+      <option>College</option>
+      <option>Milk & Egg</option>
+      <option>Petrol</option>
+      <option>Electricity & Water Bill</option>
+      <option>Travel</option>
+      <option>Pet (Cat)</option>
+      <option>Meat</option>
+      <option>Condiments</option>
+      <option>Hospital</option>
+      <option>Others</option>
+    </select>
+
+    <input
+      type="text"
+      id="customCategory"
+      placeholder="Rename Others"
+    >
+
+    <input
+      type="number"
+      id="amount"
+      placeholder="Amount ₹"
+      min="0"
+    >
+
+    <button onclick="addExpense()">Add Expense</button>
+
+  </div>
+
+  <hr>
+
+  <!-- ===== TABLE ===== -->
+  <table id="expenseTable"></table>
+
+  <!-- ===== CHART ===== -->
+  <canvas id="chart" width="300" height="300"></canvas>
+
+  <!-- ===== SCRIPT ===== -->
+  <script src="script.js"></script>
+
+</body>
+</html>
