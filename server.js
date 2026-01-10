@@ -1,53 +1,63 @@
 const express = require("express");
-const Database = require("better-sqlite3");
+const { createClient } = require("@supabase/supabase-js");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// middleware
 app.use(express.json());
 app.use(express.static("public"));
 
-// database (better-sqlite3)
-const db = new Database("database.db");
+// 🔹 Paste your Supabase credentials here
+const supabaseUrl = "https://umlbkefxolymxydxmzmy.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtbGJrZWZ4b2x5bXh5ZHhtem15Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5OTIwMTQsImV4cCI6MjA4MzU2ODAxNH0.6i-EMkL8Yp2odru6rGu3oqZ_fXeMla3YY2WrkGFjGSA";
 
-// create table
-db.prepare(`
-  CREATE TABLE IF NOT EXISTS expenses (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    date TEXT,
-    category TEXT,
-    custom_category TEXT,
-    amount REAL
-  )
-`).run();
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-// add expense
-app.post("/add", (req, res) => {
+// Add expense
+app.post("/add", async (req, res) => {
   const { date, category, customCategory, amount } = req.body;
 
-  db.prepare(
-    "INSERT INTO expenses (date, category, custom_category, amount) VALUES (?, ?, ?, ?)"
-  ).run(date, category, customCategory, amount);
+  const { error } = await supabase.from("expenses").insert([
+    {
+      date,
+      category,
+      custom_category: customCategory,
+      amount
+    }
+  ]);
+
+  if (error) return res.status(500).send(error.message);
 
   res.sendStatus(200);
 });
 
-// get all expenses
-app.get("/expenses", (req, res) => {
-  const rows = db.prepare("SELECT * FROM expenses").all();
-  res.json(rows);
+// Get all expenses
+app.get("/expenses", async (req, res) => {
+  const { data, error } = await supabase
+    .from("expenses")
+    .select("*")
+    .order("id", { ascending: true });
+
+  if (error) return res.status(500).send(error.message);
+
+  res.json(data);
 });
 
-// delete expense by id
-app.delete("/delete/:id", (req, res) => {
+// Delete expense
+app.delete("/delete/:id", async (req, res) => {
   const id = req.params.id;
 
-  db.prepare("DELETE FROM expenses WHERE id = ?").run(id);
+  const { error } = await supabase
+    .from("expenses")
+    .delete()
+    .eq("id", id);
+
+  if (error) return res.status(500).send(error.message);
+
   res.sendStatus(200);
 });
 
-// start server
+// Start server
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log("Server running on port " + PORT);
 });
