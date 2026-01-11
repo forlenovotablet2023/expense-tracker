@@ -49,7 +49,7 @@ body {
   margin-bottom: 20px;
 }
 
-/* ===== INPUTS & SELECTS (BIGGER) ===== */
+/* ===== INPUTS & SELECTS ===== */
 input, select {
   padding: 14px 18px;
   margin: 6px;
@@ -130,7 +130,7 @@ tr:hover {
   background: #f2f2f2;
 }
 
-/* ===== DATE ROW (DROPDOWN STYLE) ===== */
+/* ===== DATE ROW ===== */
 .date-row {
   cursor: pointer;
   background: #f7f7f7;
@@ -140,8 +140,6 @@ tr:hover {
 .date-row:hover {
   background: #eaeaea;
 }
-
-
 
 /* ===== DETAILS DROPDOWN ===== */
 .details ul {
@@ -178,14 +176,17 @@ tr:hover {
 .Travel { background: #87ceeb; }
 .Hospital { background: #ff9999; }
 
-/* ===== CHART ===== */
+/* ===== CHART (BIGGER + RESPONSIVE) ===== */
 canvas {
   display: block;
-  margin: 30px auto;
+  margin: 40px auto;
   background: white;
-  padding: 14px;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+  width: 520px;
+  height: 520px;
+  max-width: 100%;
 }
 
 /* ===== UTIL ===== */
@@ -206,5 +207,3 @@ canvas {
   float: right;
   box-shadow: 0 6px 15px rgba(0,0,0,0.25);
 }
-
-
