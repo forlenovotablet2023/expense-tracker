@@ -41,7 +41,7 @@ fetch("/expenses")
       </tr>
     `;
 
-    // 1️⃣ Group expenses by date
+    // Group expenses by date
     const groupedByDate = {};
 
     data.forEach(e => {
@@ -51,56 +51,69 @@ fetch("/expenses")
       groupedByDate[e.date].push(e);
     });
 
-    // 2️⃣ Build table rows date-wise
+    // Build table + calculate grand total
+    let grandTotal = 0;
+
     Object.keys(groupedByDate).forEach(date => {
       const expenses = groupedByDate[date];
 
-      let total = 0;
+      let dailyTotal = 0;
       let detailsHtml = "<ul>";
 
       expenses.forEach(e => {
         const name = e.custom_category || e.category;
-        total += Number(e.amount);
+        dailyTotal += Number(e.amount);
 
         detailsHtml += `
           <li>
             ${name} : ₹${e.amount}
             <button class="delete-btn"
-  onclick="event.stopPropagation(); deleteExpense(${e.id})">❌</button>
-
+              onclick="event.stopPropagation(); deleteExpense(${e.id})">❌</button>
           </li>
         `;
       });
 
       detailsHtml += "</ul>";
 
+      grandTotal += dailyTotal; // ✅ accumulate overall total
+
       table.innerHTML += `
         <tr class="date-row" onclick="toggleDetails(this)">
           <td>▶ ${date}</td>
           <td class="details hidden">${detailsHtml}</td>
-          <td>₹${total}</td>
+          <td>₹${dailyTotal}</td>
           <td>—</td>
         </tr>
       `;
     });
 
+    // ✅ Show grand total in UI
+    document.getElementById("grandTotal").innerText = "₹" + grandTotal;
+
+    // Pie chart
     updatePieChart(data);
   });
+
+
+
 
 function toggleDetails(row) {
   const detailsCell = row.querySelector(".details");
   detailsCell.classList.toggle("hidden");
 }
 
+
+
+
 function updatePieChart(data) {
   const totals = {};
-  let grandTotal = 0;
+  let chartGrandTotal = 0;
 
   data.forEach(e => {
     const name = e.custom_category || e.category;
     const amt = Number(e.amount);
     totals[name] = (totals[name] || 0) + amt;
-    grandTotal += amt;
+    chartGrandTotal += amt;
   });
 
   const labels = Object.keys(totals);
@@ -120,14 +133,12 @@ function updatePieChart(data) {
     options: {
       cutout: "65%",
       plugins: {
-        legend: {
-          position: "right"
-        },
+        legend: { position: "right" },
         tooltip: {
           callbacks: {
             label: function(context) {
               const value = context.raw;
-              const percent = ((value / grandTotal) * 100).toFixed(1);
+              const percent = ((value / chartGrandTotal) * 100).toFixed(1);
               return `${context.label}: ${percent}% (₹${value})`;
             }
           }
@@ -136,6 +147,9 @@ function updatePieChart(data) {
     }
   });
 }
+
+
+
 
 function deleteExpense(id) {
   fetch(`/delete/${id}`, { method: "DELETE" })
